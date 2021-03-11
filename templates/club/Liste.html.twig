@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+{% set nbMax=0 %}
+{% for form in formation %}
+{% set nbMax = max(nbMax, form.nb_participants) %}
+{% endfor %}
+<h1>Le nombre des formations est : {{ formation | length }}</h1>
+<table border="1">
+    <tr>
+        <th>Reference</th>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Date début</th>
+        <th>Date fin</th>
+        <th>Nbre Participants</th>
+    </tr>
+    {% for f in formation %}
+    <tr>
+        {# {% if 'theorique' in f.Description %} #}
+        {% if nbMax == f.nb_participants %}
+        <td>{{ f.ref }}</td>
+        <td>{{ f.Titre |upper }}</td>
+        <td>{{ f.Description }}</td>
+        <td>{{ f.date_debut }}</td>
+        <td>{{ f.date_fin }}</td>
+        <td>{{ f.nb_participants }}</td>
+
+        {% endif %}
+
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
